@@ -1,0 +1,320 @@
+#include "read_draw_pol_data.h"
+const int file_num=4;
+void extra_graph();
+void compare_NO_RC(TGraph *gCol_bi,TGraph *gSiv_bi,TGraph *gCol_du,TGraph *gSiv_du,TCanvas *cLO_Col, TCanvas *cLO_SiV,string RC_status);
+
+void driver()
+{
+
+gStyle->SetTitleXOffset(0.8);
+gStyle->SetTitleYSize(0.055);
+gStyle->SetTitleXSize(0.055);
+ gStyle->SetLineWidth(3);
+  // Choose Q2 and LAB kinematics to plot
+ string lab ="JLAB";//"EIC";
+ string kine ="15";//"25";
+ 
+  // Once Q2 (kine) is picked get corresponding file from Duane and Yn
+  Get_y( kine);
+  cout<<"   "<<num_tot_factorized<<endl; 
+  Get_pol_factor(y_fac); // Given pol factor as global variable 
+  plot_traditional(lab,conversion_To_duane);//,pol_factor);
+  
+  plot_factorized(lab, kine);
+  
+  TCanvas *cCol_off,*cSiv_off;
+  TCanvas *cCol_ON,*cSiv_ON;
+  string RC_ON= "RC_ON";
+  string RC_OFF= "RC_OFF";
+  // order Bishnu => Col LO, Siv LO  Duane => Col [LO] and Siv [LO,TCanvas *cLO_Col, TCanvas *cLO_SiV]
+   compare_NO_RC(gr_Bi[0],gr_Bi[2],gr_Du[0],gr_Du[5], cCol_off, cSiv_off,RC_OFF);
+
+
+  compare_NO_RC(gr_Bi[1],gr_Bi[3],gr_Du[2],gr_Du[7],cCol_ON,cSiv_ON, RC_ON);
+
+
+
+  int col[file_num-1]={0,1,7};
+  int siv[file_num-1]={2,3,5};
+  int style[file_num-1]={2,9,1};
+
+
+  //  extra_graph();
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /*
+
+
+ for(int i_file =0;i_file<file_num-2;i_file++)
+   {
+     if(col[i_file]==0)
+       {
+	 gr_bi[col[i_file]]->Draw("AL");
+	 gr_bi[col[i_file]]->GetXaxis()->SetTitle("q_{T}/Q ");
+	 
+	 gr_bi[col[i_file]]->GetYaxis()->SetMaxDigits(4);
+	 //  cout<<"I am first "<<col[i_file]<<endl;
+       }
+     
+     else 
+       {
+	 gr_bi[col[i_file]]->Draw("LSAME");
+	 cout<<"I am second  "<<col[i_file]<<endl;
+       }
+gr_bi[col[i_file]]->GetYaxis()->SetTitle("#int #int sin(^{}#phi_{h} + #phi_{S})d#sigma ");
+     //cout<<" HERE   "<<col[i_file]<<endl;
+     gr_bi[col[i_file]]->SetLineColor(4);
+     if(i_file>1) gr_bi[col[i_file]]->SetLineColor(2);
+     gr_bi[col[i_file]]->SetLineStyle(style[i_file]);
+     gr_bi[col[i_file]]->SetLineWidth(3);
+   }
+ */
+ /*
+ gr_Du[0]->Draw("LSAME");// col LO
+ gr_Du[2]->Draw("LSAME");// col RES
+
+
+ gr_Du[0]->SetLineColor(1);
+ gr_Du[0]->SetLineWidth(3);
+ gr_Du[0]->SetLineStyle(2);
+
+ gr_Du[2]->SetLineColor(1);
+ gr_Du[2]->SetLineWidth(3);
+ gr_Du[2]->SetLineStyle(9);
+ */
+    // gr_Du[1]->Draw("LSAME");// Siv LO
+    // gr_Du[3]->Draw("LSAME");// SiV RES
+   
+    // TCanvas  *c2= new TCanvas("","");
+   
+    // gr_Du[4]->Draw("LSAME");// Col LO
+    // gr_Du[6]->Draw("LSAME");// Col RES
+
+ /*
+ TCanvas *cSiv= new TCanvas("Siv","Siv");
+
+ for(int i_file =0;i_file<file_num-2;i_file++)
+   {
+     if(i_file==0) 
+       {
+ gr_bi[siv[i_file]]->Draw("AL");
+ gr_bi[siv[i_file]]->GetXaxis()->SetTitle("q_{T}/Q ");
+
+gr_bi[siv[i_file]]->GetYaxis()->SetMaxDigits(3);
+       }
+     else gr_bi[siv[i_file]]->Draw("LSAME");
+     gr_bi[siv[i_file]]->SetLineColor(3);
+     if(i_file>1) gr_bi[siv[i_file]]->SetLineColor(2);
+     gr_bi[siv[i_file]]->SetLineStyle(style[i_file]);
+     gr_bi[siv[i_file]]->SetLineWidth(3);
+     gr_bi[siv[i_file]]->GetYaxis()->SetTitle("#int #int sin(^{}#phi_{h} -#phi_{S})d#sigma ");
+   }
+ 
+ gr_Du[5]->Draw("LSAME");// Siv LO
+ gr_Du[5]->SetLineColor(1);
+ gr_Du[5]->SetLineWidth(3);
+ gr_Du[5]->SetLineStyle(2);
+
+ gr_Du[7]->Draw("LSAME");// Siv RES
+ gr_Du[7]->SetLineColor(1);
+ gr_Du[7]->SetLineWidth(3);
+ gr_Du[7]->SetLineStyle(9);
+*/
+ // TLegend *legend=new TLegend(0.6,0.65,0.88,0.85);// from(x1,y1) to (x2,y2)
+ //  legend->SetTextFont(72);
+ //  legend->SetTextSize(0.04);
+ //  legend->AddEntry(gr_Du[id_gr_num],"LO Collins","l");
+ //  legend->AddEntry(gr_Du[id_gr_num+1],"LO Sivers","l");
+ //  legend->AddEntry(gr_Du[id_gr_num+2],"RES Collins","l");                     
+ //  legend->AddEntry(gr_Du[id_gr_num+3],"RES Sivers","l");                       
+ //  legend->Draw();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*
+int graph_Siv[2]={4,6};// born_col_col, res_col born_col_siv, res_col_siv, res_both_col_siv_
+     int graph_Col[2]={0,2};
+    
+     //  gr_Du[4]->Draw("AP");
+     // TCanvas *can[2];
+  
+     // can[tt]= new TCanvas(Form("can%d",tt),Form("can%d",tt));
+     TCanvas  *c1= new TCanvas("","cc");
+ // Collins bn , sivers bn , collins rs , sivers RS
+
+    gr_Du[0]->Draw("AL");// col LO
+ gr_Du[0]->GetYaxis()->SetMaxDigits(3);
+ gr_Du[0]->GetXaxis()->SetTitle("q_{T}/Q");
+    gr_Du[2]->Draw("LSAME");// col RES
+    gr_Du[1]->Draw("LSAME");// Siv LO
+    gr_Du[3]->Draw("LSAME");// SiV RES
+
+   
+    TCanvas  *c2= new TCanvas("CCC","CCC");
+    gr_Du[5]->Draw("AL");// Siv LO
+    gr_Du[5]->GetYaxis()->SetMaxDigits(3);
+    gr_Du[5]->GetXaxis()->SetTitle("q_{T}/Q");
+    gr_Du[7]->Draw("LSAME");// Siv RES
+    gr_Du[4]->Draw("LSAME");// Col LO
+    gr_Du[6]->Draw("LSAME");// Col RES
+
+    gr_Du[0]->SetLineColor(4);
+    gr_Du[2]->SetLineColor(4);
+    gr_Du[4]->SetLineColor(4);
+    gr_Du[6]->SetLineColor(4);
+
+    gr_Du[1]->SetLineColor(3);
+    gr_Du[3]->SetLineColor(3);
+    gr_Du[4]->SetLineColor(3);
+    gr_Du[6]->SetLineColor(3);
+
+    
+    gr_Du[0]->SetLineStyle(2);
+    gr_Du[1]->SetLineStyle(2);
+
+    gr_Du[4]->SetLineStyle(2);
+    gr_Du[5]->SetLineStyle(2);
+
+    gr_Du[2]->SetLineStyle(9);
+    gr_Du[3]->SetLineStyle(9);
+
+    gr_Du[6]->SetLineStyle(9);
+    gr_Du[7]->SetLineStyle(9);
+
+*/
+
+
+ 
+}
+
+
+void compare_NO_RC(TGraph *gCol_bi,TGraph *gSiv_bi,TGraph *gCol_du,TGraph *gSiv_du, TCanvas *cLO_Col, TCanvas *cLO_Siv,string RC_status)
+{
+  cLO_Col= new TCanvas(Form("Col_%s",RC_status.c_str()),Form("Col_%s", RC_status.c_str()));
+  
+
+
+  gCol_du->Draw("AL");
+  gCol_du->SetMarkerStyle(22);
+  gCol_du->SetMarkerColor(2);
+  gCol_du->SetLineColor(2);
+
+  gCol_du->GetYaxis()->SetTitle("#int #int sin(^{}#phi_{h} + #phi_{S})d#sigma ");
+  // gCol_du->GetXaxis()->SetTitle("q_{T}/Q");
+ gCol_du->GetXaxis()->SetTitle("P_{hT} (GeV/c)");
+  gCol_bi->Draw("LSAME");
+  gCol_bi->SetLineColor(4);
+gCol_bi->SetMarkerStyle(22);
+
+ TLegend *legend=new TLegend(0.6,0.65,0.88,0.85);// from(x1,y1) to (x2,y2)
+  legend->SetTextFont(72);
+  legend->SetTextSize(0.04);
+  legend->AddEntry(gCol_du,"Traditional","l");
+  legend->AddEntry(gCol_bi,"Factorized","l");
+                      
+  legend->Draw();
+
+
+  cLO_Siv= new TCanvas(Form("Siv_%s",RC_status.c_str()),Form("Siv_%s", RC_status.c_str()));
+  
+  gSiv_du->GetYaxis()->SetTitle("#int #int sin(^{}#phi_{h} - #phi_{S})d#sigma ");
+  //gSiv_du->GetXaxis()->SetTitle("q_{T}/Q");
+ gSiv_du->GetXaxis()->SetTitle("P_{hT} (GeV/c)");
+
+  gSiv_du->Draw("AL");
+  gSiv_du->SetMarkerStyle(22);
+  gSiv_du->SetLineColor(2);
+  gSiv_du->SetMarkerColor(2);
+
+  gSiv_bi->Draw("LSAME");
+  gSiv_bi->SetLineColor(4);
+  gSiv_bi->SetMarkerStyle(22);
+
+
+
+
+ TLegend *legend1=new TLegend(0.6,0.65,0.88,0.85);// from(x1,y1) to (x2,y2)
+  legend1->SetTextFont(72);
+  legend1->SetTextSize(0.04);
+  legend1->AddEntry(gSiv_du,"Traditional","l");
+  legend1->AddEntry(gSiv_bi,"Factorized","l");
+                      
+  legend1->Draw();
+
+
+}
+
+void extra_graph()
+{
+  gStyle->SetLineWidth(3);
+
+  TCanvas *ccol= new TCanvas("Col","Col");
+  const int tot_num=11;
+  Double_t Data_25_EIC[tot_num]={0,0.005,0.010,0.012,0.011,0.009,0.005,0.003,0,0,0};
+  Double_t Data_25_EIC2[tot_num];;
+  Double_t Data_25_EICF[tot_num];
+  Double_t qt_Q[tot_num]={0,0.05,0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5};
+  for(int i=0;i<tot_num;i++)
+    {
+      Data_25_EICF[i]=Data_25_EIC[i]*1e-5;
+      Data_25_EIC2[i]=0*Data_25_EIC[i];
+    }
+  TGraph*extra_gr= new TGraph(tot_num,qt_Q,Data_25_EICF);
+  TGraph*extra_gr2= new TGraph(tot_num,qt_Q,Data_25_EIC2);
+
+
+  gr_Bi[0]->Draw("AL");
+  gr_Bi[0]->SetLineStyle(2);
+  gr_Bi[0]->SetLineColor(4);
+  gr_Bi[0]->GetYaxis()->SetRangeUser(-0.01e-6,0.8e-6);
+  //gr_Bi[0]->GetXaxis()->SetTitle("q_{T}/Q");
+gr_Bi[0]->GetXaxis()->SetTitle("P_{hT} (GeV/c)");
+  gr_Bi[0]->GetYaxis()->SetTitle("#int #int sin(^{}#phi_{h} + #phi_{S})d#sigma ");
+  gr_Bi[1]->Draw("LSAME");
+  gr_Bi[1]->SetLineStyle(9);
+  gr_Bi[1]->SetLineColor(4);
+
+
+  extra_gr->Draw("LSAME");
+  extra_gr->SetLineStyle(9);
+  extra_gr->SetLineColor(3);
+  extra_gr->SetMarkerStyle(22);
+
+  extra_gr2->Draw("LSAME");
+  extra_gr2->SetLineStyle(2);
+  extra_gr2->SetLineColor(3);
+
+ TLegend *legend=new TLegend(0.6,0.65,0.88,0.85);// from(x1,y1) to (x2,y2)
+ legend->SetTextFont(72);
+ legend->SetTextSize(0.04);
+ legend->AddEntry( gr_Bi[0],"LO Collins","l");
+ legend->AddEntry(extra_gr2,"LO Sivers","l");
+ legend->AddEntry( gr_Bi[1],"RC Collins","l");                     
+ legend->AddEntry(extra_gr,"RC Sivers","l");                       
+ legend->Draw();
+
+
+
+   }
